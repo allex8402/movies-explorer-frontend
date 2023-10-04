@@ -33,7 +33,7 @@
 }
 
 
-.navigation__nav {
+.navigation-nav {
     display: none;
 }
 
@@ -82,7 +82,7 @@
         display: none;
     }
 
-    .navigation__nav {
+    .navigation-nav {
         display: block;
         padding: 0;
         width: 44px;
@@ -115,7 +115,7 @@
         margin-left: 14px;
     }
 
-    .navigation__nav {
+    .navigation-nav {
         height: 43px;
         background-size: cover;
         margin-right: 10px;

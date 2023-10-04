@@ -44,10 +44,8 @@
     color: #FFF;
     list-style: none;
     padding: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
     margin: 0 auto;
     gap: 10px;
 }

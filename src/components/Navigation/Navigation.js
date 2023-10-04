@@ -31,7 +31,7 @@ const Navigation = ({ loggedIn }) => {
                         <ProfileNav className='navigation__icon ' />
 
                     </div>
-                    <button className='navigation__nav' type='button' onClick={togglePopup} />
+                    <button className='navigation-nav' type='button' onClick={togglePopup} />
 
                 </>
             ) : (

@@ -5,7 +5,7 @@ function AboutMe() {
     return (
         <section className="about-me">
             <h2 className="about-me__title">Студент</h2>
-            <div className="about-me__conteiner">
+            <div className="about-me__container">
                 <div className="about-me__info">
                     <h3 className="about-me__name">Александр</h3>
                     <h4 className="about-me__job">Фронтенд-разработчик, 30 лет</h4>
@@ -15,7 +15,9 @@ function AboutMe() {
                         Недавно решил попробовать что то новое. Привлекла веб- разработка. Пока нравится</p>
                     <a className='about-me__link' href='https://github.com' target='_blank' rel='noreferrer'>Github</a>
                 </div>
-                <img className='about-me__photo' src={photo} alt='Фотография' />
+                <div className="about-me__photo-container">
+                    <div className="about-me__photo"></div>
+                </div>
             </div>
         </section>
     )

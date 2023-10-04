@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Header from '../Header/Header'; // Импортируем Header
-import Footer from '../Footer/Footer'; // Импортируем Footer
-import SearchForm from '../SearchForm/SearchForm';
-import CardList from '../MoviesCardList/MoviesCardList'
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import NotFound from '../Error/Error';
@@ -12,7 +8,7 @@ import Profile from '../Profile/Profile';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Main from '../main';
 import Movies from '../Movies/Movies';
-import NavigationPopup from '../NavigationPopup/NavigationPopup';
+
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -35,21 +31,7 @@ function App() {
   );
 }
 export default App;
-{/* <Router>
-  <div className="app">
-    <Header loggedIn={loggedIn} />
-    <Switch>
-      <Route path="/" element={<Main />} />
-      <Route path="/movies" element={<Movies />} />
-      <Route path="/saved-movies" element={<SavedMovies />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/signup" element={<Register />} />
-      <Route path="/signin" element={<Login />} />
-      <Route path="*" element={<NotFound />} />
-    </Switch>
-    <Footer />
-  </div>
-</Router> */}
+
 
 
 

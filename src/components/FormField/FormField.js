@@ -9,6 +9,7 @@ const FormField = ({ label, error, name, type, ...rest }) => {
                 name={name}
                 type={type}
                 {...rest}
+
             />
             <span className='formfield__error'>{error}</span>
 

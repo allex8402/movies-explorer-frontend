@@ -1,1 +1,1 @@
-Макет: dark-1
+# movies-explorer-frontend
