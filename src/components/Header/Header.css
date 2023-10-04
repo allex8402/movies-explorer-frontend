@@ -1,0 +1,32 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1140px;
+    min-height: 74px;
+    margin: 0 auto;
+
+    opacity: 100%;
+}
+
+.header-main {
+    background-color: #073042;
+    padding: 0 70px;
+}
+
+.header-other {
+    background-color: #202020;
+}
+
+
+@media screen and (max-width: 768px) {
+    .header-main {
+        padding: 0 30px
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .header-main {
+        padding: 0 14px
+    }
+}

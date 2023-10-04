@@ -1,0 +1,26 @@
+.navigation__btn {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 12px;
+    border-radius: 40px;
+    border: none;
+    background: transparent;
+    color: #ffffff;
+    padding: 0;
+    cursor: pointer;
+    margin-right: 7px;
+}
+
+.navigation__logo {
+    width: 26px;
+    height: 26px;
+    border-radius: 50px;
+    background: #313131;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup__button {
+    display: flex;
+}
