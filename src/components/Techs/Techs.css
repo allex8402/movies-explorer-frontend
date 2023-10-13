@@ -76,7 +76,6 @@
     }
 
     .techs__items {
-
         max-width: 658px;
         margin: 0 10px;
     }
@@ -101,7 +100,6 @@
 @media screen and (max-width: 370px) and (min-width: 320px) {
     .techs {
         background: #202020;
-
         padding: 70px 18px;
     }
 

@@ -16,24 +16,21 @@ const NavigationPopup = () => {
                     <button type='button' className='popup__close' onClick={togglePopup} />
                     <ul className='popup__list' >
                         <li className='popup__item'>
-                            <NavLink exact to='/' className='popup__link' activeClassName='popup__link_active'>
+                            <NavLink exact to='/' className='popup__link' >
                                 Главная
                             </NavLink>
                         </li>
                         <li className='popup__item'>
-                            <NavLink to='/movies' className='popup__link' activeClassName='popup__link_active'>
+                            <NavLink to='/movies' className='popup__link' >
                                 Фильмы
                             </NavLink>
                         </li>
                         <li className='popup__item'>
-                            <NavLink to='/saved-movies' className='popup__link' activeClassName='popup__link_active'>
+                            <NavLink to='/saved-movies' className='popup__link' >
                                 Сохранённые фильмы
                             </NavLink>
                         </li >
                     </ul>
-                    {/* <Link to='/profile'>
-                        <button className='popup__button' type='button' >Аккаунт</button>
-                    </Link> */}
                     <ProfileNav className='popup__button ' />
                 </div>
             </div>

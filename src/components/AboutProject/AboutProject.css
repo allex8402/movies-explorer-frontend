@@ -132,17 +132,11 @@
 
    }
 
-
    .about-project__conteiner {
       flex-direction: column;
       margin: 60px 0;
       gap: 56px
    }
-
-   /* .about-project__info {
-      max-height: 108px;
-
-   } */
 
    .about-project__subtitle {
       font-size: 18px;

@@ -2,7 +2,6 @@
 import './Promo.css'
 import landinglogo from '../../images/landing-logo.svg'
 
-
 function Promo() {
     return (
         <section className="promo">

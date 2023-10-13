@@ -8,7 +8,6 @@
     max-width: 396px;
     height: 100%;
     margin: 0 auto;
-
 }
 
 .register__title {
@@ -37,7 +36,11 @@
     padding: 0;
     border: none;
     cursor: pointer;
+}
 
+.register__button_disabled {
+    background: #2F2F2F;
+    pointer-events: none;
 }
 
 .register__text {
@@ -57,13 +60,20 @@
     margin-left: 7px;
 }
 
+.register__error {
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: brown;
+}
+
 @media screen and (max-width: 768px) {
     .register {
         padding: 232px 0 232px 0;
     }
 
     .register__button {
-
         margin: 69px 0 16px 0;
     }
 }
@@ -72,7 +82,6 @@
 
     .register {
         padding: 56px 30px 30px 30px;
-
     }
 
     .register__container {

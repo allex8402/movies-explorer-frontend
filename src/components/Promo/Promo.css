@@ -7,7 +7,6 @@
     padding: 0 70px 0 70px;
     text-align: left;
     min-height: 560px;
-
 }
 
 .promo__container {
@@ -68,16 +67,11 @@
         line-height: 39px;
         margin: 133px 10px 60px 10px;
         text-align: center;
-
     }
 
     .promo__photo {
-        /* width: 280px; */
         left: 50%;
         transform: translateX(-50%);
         right: 50%;
-
-
-
     }
 }

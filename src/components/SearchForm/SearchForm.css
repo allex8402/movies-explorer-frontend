@@ -3,7 +3,6 @@
     height: 72px;
     background: #202020;
     border-bottom: 1px solid #424242;
-
     padding: 70px 0 69px 0;
     display: flex;
     justify-content: center;
@@ -17,7 +16,6 @@
     height: 72px;
     border-radius: 9px;
     background: #2F2F2F;
-
 }
 
 .search__icon {
@@ -30,7 +28,6 @@
 .search__input-label {
     display: inline-block;
     margin: 0;
-
 }
 
 .search__input {
@@ -78,7 +75,6 @@
 .toggle-switch-label {
     display: flex;
     align-items: center;
-
 }
 
 .search__button:hover {
@@ -92,20 +88,11 @@
     font-weight: 400;
     line-height: 18px;
     margin: 0 30px 0 14px;
-
 }
 
-/* @media screen and (max-width: 430px) {
-    .search__form {
-        width: 300px;
-    }
-
-    .toggle-switch-label {}
-} */
 
 @media screen and (max-width: 768px) {
     .search {
-
         padding: 70px 0 120px 0;
     }
 }
@@ -129,12 +116,10 @@
 
     .search-divider {
         display: none;
-
     }
 
     .search__icon {
         display: none;
-
     }
 
     .search__input {

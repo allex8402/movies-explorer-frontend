@@ -51,6 +51,8 @@
     border: none;
 }
 
+
+
 .profile__button {
     max-width: 410px;
     background: #202020;
@@ -69,10 +71,25 @@
     padding: 0;
 }
 
+.profile__button_type_edit_disabled {
+    background: #2F2F2F;
+    pointer-events: none;
+}
+
 .profile__button_type_exit {
     color: #EE3465;
     text-align: center;
     font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding: 0;
+}
+
+.profile__success-message {
+    color: #f8f5f6ee;
+    text-align: center;
+    font-size: 15px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;

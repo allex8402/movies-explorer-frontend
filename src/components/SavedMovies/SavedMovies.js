@@ -1,18 +1,27 @@
+import React from 'react';
 import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-const SavedMovies = ({ movies, onDeleteMovie, isSavedMovies, onCheckbox, onSubmit, checked, isNotFound,
-    savedMovies, loggedIn, setLoggedIn }
-) => {
+
+
+const SavedMovies = ({ movies, checked, onCheckbox, isSavedMovies, onSubmit, isNotFound, savedMovies, onDeleteMovie }) => {
+
+
     return (
         <main className='saved-movies'>
-            <Header loggedIn={loggedIn} />
             <SearchForm
+                onSubmit={onSubmit}
+                onCheckbox={onCheckbox}
+                checked={checked}
             />
-            <MoviesCardList />
-            <Footer />
+            <MoviesCardList
+                movies={movies}
+                isMoviesPage={false}
+                onDeleteMovie={onDeleteMovie}
+                isSavedMovies={isSavedMovies}
+                isNotFound={isNotFound}
+                savedMovies={savedMovies}
+            />
         </main>
     )
 }

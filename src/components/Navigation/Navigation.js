@@ -16,23 +16,12 @@ const Navigation = ({ loggedIn }) => {
                 <>
                     <div className='navigation'>
                         <nav className='navigation__links'>
-                            <NavLink to='/movies' className='navigation__link  ' activeClassName='navigation__link_active'>Фильмы</NavLink>
-                            <NavLink to='/saved-movies' className='navigation__link' activeClassName='navigation__link_active'>Сохранённые фильмы</NavLink>
+                            <NavLink to='/movies' className='navigation__link' >Фильмы</NavLink>
+                            <NavLink to='/saved-movies' className='navigation__link' >Сохранённые фильмы</NavLink>
                         </nav>
-
-                        {/* <nav className='navigation__icon' >
-                            <Link to='/profile'>
-                                <button className='navigation__btn' type='button'>Аккаунт</button>
-                            </Link>
-                            <Link to='/profile' className='navigation__logo'>
-                                <img src={icon} alt='Логотип' />
-                            </Link>
-                        </nav> */}
                         <ProfileNav className='navigation__icon ' />
-
                     </div>
                     <button className='navigation-nav' type='button' onClick={togglePopup} />
-
                 </>
             ) : (
                 <nav className='navigation'>

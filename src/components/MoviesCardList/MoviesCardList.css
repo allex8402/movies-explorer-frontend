@@ -7,14 +7,26 @@
     margin: 0;
 }
 
-.card__list {
-    max-width: 100%;
+.cards__list {
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
     grid-gap: 38px 20px;
     justify-content: center;
     margin: 0;
     padding: 0;
+}
+
+.cards__message {
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: brown;
+}
+
+.cards__message_none {
+    display: none;
 }
 
 .cards__button {
@@ -32,17 +44,19 @@
     cursor: pointer;
 }
 
+.cards__button_hidden {
+    visibility: hidden;
+}
+
 @media screen and (max-width: 768px) and (min-width: 720px) {
     .cards {
         max-width: 708px;
         grid-template-columns: repeat(auto-fill, minmax(339px, 1fr));
-
     }
 
-    .card__list {
+    .cards__list {
         grid-gap: 30px 30px;
     }
-
 }
 
 @media screen and (max-width: 720px) and (min-width: 320px) {
@@ -53,7 +67,7 @@
         padding: 50px 0 80px 0;
     }
 
-    .card__list {
+    .cards__list {
         gap: 34px;
     }
 
