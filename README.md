@@ -7,6 +7,9 @@
 
 Адрес репозитория: https://github.com/allex8402/movies-explorer-frontend
 
+Ссылка на пул реквест, открытый из ветки level-3 в main: https://github.com/allex8402/movies-explorer-frontend/pull/2
+
+
 ## Ссылки на проект
 
 IP 158.160.75.132
