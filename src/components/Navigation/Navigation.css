@@ -6,6 +6,12 @@
     width: 92%;
 }
 
+.navigation__reg {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
 .navigation__icon {
     display: flex;
     align-items: center;
@@ -56,6 +62,7 @@
     color: #000000;
     padding: 0;
     cursor: pointer;
+    margin-left: 30px;
 }
 
 .navigation__link:hover,

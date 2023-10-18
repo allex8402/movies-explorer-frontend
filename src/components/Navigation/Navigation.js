@@ -24,7 +24,7 @@ const Navigation = ({ loggedIn }) => {
                     <button className='navigation-nav' type='button' onClick={togglePopup} />
                 </>
             ) : (
-                <nav className='navigation'>
+                <nav className='navigation__reg'>
                     <Link to='/signup' className='navigation__link'>Регистрация</Link>
                     <Link to='/signin'>
                         <button className='navigation__button' type='button'>

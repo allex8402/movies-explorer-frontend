@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import './App.css';
@@ -15,6 +15,7 @@ import mainApi from "../../utils/MainApi";
 import moviesApi from '../../utils/MoviesApi';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import GuestRoute from '../GuestRoute/GuestRoute';
 
 function App() {
   const navigate = useNavigate();
@@ -41,6 +42,9 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]); // массив сохраненных фильмы
   const [allSavedMovies, setAllSavedMovies] = useState(savedMovies)
   const [filteredMovies, setFilteredMovies] = useState(allSavedMovies);
+
+
+  useEffect(() => { checkToken() }, [])
 
 
   // регистрация
@@ -70,6 +74,7 @@ function App() {
         if (res.token) {
           setLoggedIn(true);
           localStorage.setItem('jwt', res.token);
+          checkToken()
           navigate('/movies');
         }
       })
@@ -87,39 +92,37 @@ function App() {
       });
   }
 
-  React.useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
-    if (jwt) {
-      auth.getToken(jwt).then((res) => {
-        if (res) {
-          setLoggedIn(true);
-        }
-      }).catch((err) => {
-        console.error(err);
-      });
-    }
-  }, []);
+
+  const location = useLocation()
+  const currentPath = location.pathname
+
 
   // // получение информации о пользователе
-  useEffect(() => {
-    if (loggedIn === true) {
-      mainApi.getUserInfo()
-        .then((data) => {
-          setCurrentUser(data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      mainApi.getSavedMovies()
-        .then((data) => {
-          setLoggedIn(true);
-          setSavedMovies(data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+  const checkToken = () => {
+    const jwt = localStorage.getItem('jwt');
+    if (!jwt) {
+      return;
     }
-  }, [loggedIn]);
+    mainApi
+      .getUserInfo(jwt)
+      .then((data) => {
+        setCurrentUser(data)
+        setLoggedIn(true);
+        navigate(currentPath, { replace: true });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    mainApi
+      .getSavedMovies(jwt)
+      .then((data) => {
+        setLoggedIn(true);
+        setSavedMovies(data)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  };
 
 
   function handleUpdateUser({ name, email }) {
@@ -156,6 +159,7 @@ function App() {
     setFoundMovies(false);
     setSelectedCheckbox(false);
     setSearchKeyword('');
+
   }
 
   //* Поиск фильмов
@@ -238,10 +242,14 @@ function App() {
     }
   }
 
-  //* Проверка сохранен ли фильм
-  const isSavedMovies = (movie) => {
-    return savedMovies.some(item => item.movieId === movie.id && item.owner === currentUser._id)
-  }
+  // Отслеживаем наличие сохраненных фильмов
+  useEffect(() => {
+    if (savedMovies.length !== 0) {
+      setIsNotFound(false)
+    } else {
+      setIsNotFound(true)
+    }
+  }, [savedMovies])
 
   // Отслеживание состояние стэйта чекбокса сохраненные фильмы 
   useEffect(() => {
@@ -255,26 +263,38 @@ function App() {
   }, [savedMovies]);
 
   // меняем чекбокс-сохраненные фильмы
-  function handleChangeCheckboxSavedMovies() {
-    setCheckboxSavedMovies(!checkboxSavedMovies);
+  // function handleChangeCheckboxSavedMovies() {
+  //   setCheckboxSavedMovies(!checkboxSavedMovies);
 
+  //   if (!checkboxSavedMovies) {
+  //     const shortMovies = searchShortMovies(allSavedMovies);
+  //     setAllSavedMovies(shortMovies);
+  //     setIsNotFound(shortMovies.length === 0);
+  //   } else {
+  //     setAllSavedMovies(savedMovies);
+  //     setIsNotFound(savedMovies.length === 0); // 
+  //   }
+  // }
+  function handleChangeCheckboxSavedMovies() {
     if (!checkboxSavedMovies) {
-      const shortMovies = searchShortMovies(allSavedMovies);
-      setAllSavedMovies(shortMovies);
-      setIsNotFound(shortMovies.length === 0);
-    } else {
-      setAllSavedMovies(savedMovies);
-      setIsNotFound(savedMovies.length === 0); // 
-    }
-  }
-  // Отслеживаем наличие сохраненных фильмов
-  useEffect(() => {
-    if (savedMovies.length !== 0) {
+      setCheckboxSavedMovies(true)
+      localStorage.setItem('checkboxSavedMovies', true);
+      setAllSavedMovies(searchShortMovies(filteredMovies));
+      if (searchShortMovies(filteredMovies).length === 0) {
+        setIsNotFound(true)
+      }
       setIsNotFound(false)
     } else {
-      setIsNotFound(true)
+      setCheckboxSavedMovies(false)
+      localStorage.setItem('checkboxSavedMovies', false);
+      if (filteredMovies.length === 0) {
+        setIsNotFound(true)
+      }
+      setIsNotFound(false)
+      setAllSavedMovies(filteredMovies)
     }
-  }, [savedMovies])
+  }
+
 
   // обработка запроса по поиску
   const handleRequestMovies = (keyword) => {
@@ -301,6 +321,10 @@ function App() {
       handleSetFoundMovies(allMovies, keyword, selectedCheckbox);
     }
   };
+  //* Проверка сохранен ли фильм
+  const isSavedMovies = (movie) => {
+    return savedMovies.some(item => item.movieId === movie.id && item.owner === currentUser._id)
+  }
 
   // запрос на сохранение фильма в "Сохраненные фильмы"
   const handleSaveMovie = (movie) => {
@@ -329,7 +353,7 @@ function App() {
   }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={currentUser} >
       <div className="app">
         <Routes>
           <Route path="/" element={
@@ -387,8 +411,8 @@ function App() {
               onUpdateUser={handleUpdateUser}
               onClick={onSignOut}
               errorMessage={errorMessage} />} />
-          <Route path="/signup" element={<Register onRegister={onRegister} errorMessage={errorMessage} />} />
-          <Route path="/signin" element={<Login onLogin={onLogin} errorMessage={errorMessage} />} />
+          <Route path="/signup" element={<GuestRoute component={Register} onRegister={onRegister} errorMessage={errorMessage} loggedIn={loggedIn} />} />
+          <Route path="/signin" element={<GuestRoute component={Login} onLogin={onLogin} errorMessage={errorMessage} loggedIn={loggedIn} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 
