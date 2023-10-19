@@ -19,6 +19,8 @@ import GuestRoute from '../GuestRoute/GuestRoute';
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation()
+  const currentPath = location.pathname
   // пользователь
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
@@ -92,12 +94,7 @@ function App() {
       });
   }
 
-
-  const location = useLocation()
-  const currentPath = location.pathname
-
-
-  // // получение информации о пользователе
+  // получение информации о пользователе
   const checkToken = () => {
     const jwt = localStorage.getItem('jwt');
     if (!jwt) {
@@ -106,8 +103,8 @@ function App() {
     mainApi
       .getUserInfo(jwt)
       .then((data) => {
-        setCurrentUser(data)
         setLoggedIn(true);
+        setCurrentUser(data)
         navigate(currentPath, { replace: true });
       })
       .catch((err) => {
@@ -159,7 +156,7 @@ function App() {
     setFoundMovies(false);
     setSelectedCheckbox(false);
     setSearchKeyword('');
-
+    setFoundMovies([])
   }
 
   //* Поиск фильмов
@@ -233,23 +230,20 @@ function App() {
 
   //* Поиск фильмов из сохраненных ранее по ключевому слову
   function handleSearchSavedMovies(keyword) {
-    if (findMovies(savedMovies, keyword, checkboxSavedMovies).length === 0) {
-      setIsNotFound(true)
+    const filteredMovies = findMovies(savedMovies, keyword, checkboxSavedMovies);
+    if (filteredMovies.length === 0) {
+      setIsNotFound(true);
     } else {
-      setIsNotFound(false)
-      setFilteredMovies(findMovies(savedMovies, keyword, checkboxSavedMovies))
-      setAllSavedMovies(findMovies(savedMovies, keyword, checkboxSavedMovies))
+      setIsNotFound(false);
+      setFilteredMovies(filteredMovies);
+      setAllSavedMovies(filteredMovies);
     }
   }
 
-  // Отслеживаем наличие сохраненных фильмов
-  useEffect(() => {
-    if (savedMovies.length !== 0) {
-      setIsNotFound(false)
-    } else {
-      setIsNotFound(true)
-    }
-  }, [savedMovies])
+  //* Проверка сохранен ли фильм
+  const isSavedMovies = (movie) => {
+    return savedMovies.some(item => item.movieId === movie.id && item.owner === currentUser._id)
+  }
 
   // Отслеживание состояние стэйта чекбокса сохраненные фильмы 
   useEffect(() => {
@@ -263,38 +257,26 @@ function App() {
   }, [savedMovies]);
 
   // меняем чекбокс-сохраненные фильмы
-  // function handleChangeCheckboxSavedMovies() {
-  //   setCheckboxSavedMovies(!checkboxSavedMovies);
-
-  //   if (!checkboxSavedMovies) {
-  //     const shortMovies = searchShortMovies(allSavedMovies);
-  //     setAllSavedMovies(shortMovies);
-  //     setIsNotFound(shortMovies.length === 0);
-  //   } else {
-  //     setAllSavedMovies(savedMovies);
-  //     setIsNotFound(savedMovies.length === 0); // 
-  //   }
-  // }
   function handleChangeCheckboxSavedMovies() {
+    setCheckboxSavedMovies(!checkboxSavedMovies);
+
     if (!checkboxSavedMovies) {
-      setCheckboxSavedMovies(true)
-      localStorage.setItem('checkboxSavedMovies', true);
-      setAllSavedMovies(searchShortMovies(filteredMovies));
-      if (searchShortMovies(filteredMovies).length === 0) {
-        setIsNotFound(true)
-      }
-      setIsNotFound(false)
+      const shortMovies = searchShortMovies(allSavedMovies);
+      setAllSavedMovies(shortMovies);
+      setIsNotFound(shortMovies.length === 0);
     } else {
-      setCheckboxSavedMovies(false)
-      localStorage.setItem('checkboxSavedMovies', false);
-      if (filteredMovies.length === 0) {
-        setIsNotFound(true)
-      }
-      setIsNotFound(false)
-      setAllSavedMovies(filteredMovies)
+      setAllSavedMovies(savedMovies);
+      setIsNotFound(savedMovies.length === 0);
     }
   }
-
+  // Отслеживаем наличие сохраненных фильмов
+  useEffect(() => {
+    if (savedMovies.length !== 0) {
+      setIsNotFound(false)
+    } else {
+      setIsNotFound(true)
+    }
+  }, [savedMovies])
 
   // обработка запроса по поиску
   const handleRequestMovies = (keyword) => {
@@ -321,10 +303,7 @@ function App() {
       handleSetFoundMovies(allMovies, keyword, selectedCheckbox);
     }
   };
-  //* Проверка сохранен ли фильм
-  const isSavedMovies = (movie) => {
-    return savedMovies.some(item => item.movieId === movie.id && item.owner === currentUser._id)
-  }
+
 
   // запрос на сохранение фильма в "Сохраненные фильмы"
   const handleSaveMovie = (movie) => {
